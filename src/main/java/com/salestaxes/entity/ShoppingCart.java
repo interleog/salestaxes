@@ -1,5 +1,6 @@
 package com.salestaxes.entity;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -7,11 +8,8 @@ import java.util.List;
  */
 public class ShoppingCart extends BaseEntity {
 
+    @NotNull
     private List<Product> productList;
-
-    private Float totalTaxes;
-
-    private Float grandTotal;
 
     public List<Product> getProductList() {
         return productList;
@@ -21,19 +19,4 @@ public class ShoppingCart extends BaseEntity {
         this.productList = productList;
     }
 
-    public Float getTotalTaxes() {
-        return totalTaxes;
-    }
-
-    public void setTotalTaxes(Float totalTaxes) {
-        this.totalTaxes = totalTaxes;
-    }
-
-    public Float getGrandTotal() {
-        return grandTotal;
-    }
-
-    public void setGrandTotal(Float grandTotal) {
-        this.grandTotal = grandTotal;
-    }
 }

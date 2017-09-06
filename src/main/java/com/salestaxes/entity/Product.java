@@ -1,16 +1,22 @@
 package com.salestaxes.entity;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by Leonardo Galati on 07/09/2017.
  */
 public class Product extends BaseEntity {
 
+    @NotNull
     private String category;
 
+    @NotNull
     private boolean isImported;
 
+    @NotNull
     private Float price;
 
+    @NotNull
     private Long quantity;
 
     public String getCategory() {

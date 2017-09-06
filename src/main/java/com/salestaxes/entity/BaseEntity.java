@@ -5,11 +5,12 @@ package com.salestaxes.entity;
  */
 public class BaseEntity {
 
-    protected Long id;
 
-    protected String cod;
+    private Long id;
 
-    protected String des;
+    private String cod;
+
+    private String des;
 
     public Long getId() {
         return id;
