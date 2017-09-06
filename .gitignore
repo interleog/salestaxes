@@ -1,0 +1,38 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+
+#OUTPUT
+
+target/
+
+#FRONT
+frontend/src/main/frontend/npm
+frontend/src/main/frontend/node/**
+node_modules/
+frontend/src/main/frontend/node_modules/**
+frontend/src/main/frontend/src/app/**/*.js
+frontend/src/main/npm-debug.log
+
