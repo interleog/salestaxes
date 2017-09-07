@@ -7,14 +7,14 @@ public class GenericResponse<T> {
     private String message;
 
 
-    public GenericResponse(T data, String message, int status) {
-        this.statusCode = status;
+    public GenericResponse(T data, String message, int statusCode) {
+        this.statusCode = statusCode;
         this.message = message;
         this.data = data;
     }
 
-    public GenericResponse(T data, int status) {
-        this.statusCode = status;
+    public GenericResponse(T data, int statusCode) {
+        this.statusCode = statusCode;
         this.message = "";
         this.data = data;
     }

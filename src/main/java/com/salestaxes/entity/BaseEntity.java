@@ -12,6 +12,15 @@ public class BaseEntity {
 
     private String des;
 
+    public BaseEntity() {
+    }
+
+    public BaseEntity(Long id, String cod, String des) {
+        this.id = id;
+        this.cod = cod;
+        this.des = des;
+    }
+
     public Long getId() {
         return id;
     }

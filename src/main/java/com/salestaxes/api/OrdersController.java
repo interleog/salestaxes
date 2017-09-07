@@ -5,7 +5,11 @@ import com.salestaxes.entity.ShoppingCart;
 import com.salestaxes.service.OrdersService;
 import com.salestaxes.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -26,7 +30,11 @@ public class OrdersController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<Receipt> insert(@RequestBody @Valid ShoppingCart shoppingCart) {
-        return null;
+
+        Receipt rcpt = ordersService.processOrder(shoppingCart);
+
+        return new GenericResponse<>(rcpt, 0);
+
     }
 
 }

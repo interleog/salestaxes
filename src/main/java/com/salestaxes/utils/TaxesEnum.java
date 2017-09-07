@@ -1,20 +1,23 @@
 package com.salestaxes.utils;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Leonardo Galati on 07/09/2017.
  */
 public enum TaxesEnum {
 
-    GENERAL_TAX(10),
-    IMPORTED_TAX(5);
+    GENERAL_TAX(BigDecimal.valueOf(10)),
+    IMPORTED_TAX(BigDecimal.valueOf(5)),
+    HUNDRED(BigDecimal.valueOf(100));
 
-    private final int tax;
+    private final BigDecimal tax;
 
-    private TaxesEnum(int tax) {
+    private TaxesEnum(BigDecimal tax) {
         this.tax = tax;
     }
 
-    public int getTax() {
+    public BigDecimal getValue() {
         return tax;
     }
 }

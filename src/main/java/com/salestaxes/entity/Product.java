@@ -19,6 +19,17 @@ public class Product extends BaseEntity {
     @NotNull
     private Long quantity;
 
+    public Product() {
+    }
+
+    public Product(Long id, String cod, String des, String category, boolean isImported, Float price, Long quantity) {
+        super(id, cod, des);
+        this.category = category;
+        this.isImported = isImported;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -49,5 +60,10 @@ public class Product extends BaseEntity {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return quantity + " " + this.getDes() + ": " + price + "\n";
     }
 }
