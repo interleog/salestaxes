@@ -75,9 +75,9 @@ public class OrdersControllerTest {
         p = new Product(4L, "4", "box of imported chocolate", "FOOD", true, 11.25F, 1L);
         productList.add(p);
 
-        shoppingCart.setId(1L);
-        shoppingCart.setCod("CART2");
-        shoppingCart.setDes("Input 2");
+        shoppingCart.setId(3L);
+        shoppingCart.setCod("CART3");
+        shoppingCart.setDes("Input 3");
         shoppingCart.setProductList(productList);
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);

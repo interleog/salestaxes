@@ -52,10 +52,34 @@ public class OrderServiceImpl implements OrdersService {
     }
 
     private Float calculateTaxes(Product product) {
+        Double taxes = 0D;
+        Double importTaxes = 0D;
+
+        if (!product.getCategory().equalsIgnoreCase(ProductCategoryEnum.BOOKS.getCategory()) &&
+                !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.FOOD.getCategory()) &&
+                !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.MEDICINES.getCategory())) {
+
+            taxes = (double) (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue().intValue()) / TaxesEnum.HUNDRED.getValue().intValue();
+            taxes = Math.ceil(taxes * 2) / 2;
+
+        }
+
+        if (product.isImported()) {
+            importTaxes = (double) (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue().intValue()) / TaxesEnum.HUNDRED.getValue().intValue();
+            importTaxes = Math.ceil(importTaxes * 2) / 2;
+        }
+
+        //totalTaxes = (Math.ceil(taxes.floatValue() * 2) / 2) + (Math.ceil(importTaxes.floatValue() * 2) / 2);
+
+        return (float) (taxes + importTaxes);
+
+    }
+
+    /*private Float calculateTaxes(Product product) {
         BigDecimal taxes = BigDecimal.ZERO;
         BigDecimal importTaxes = BigDecimal.ZERO;
 
-        taxes = taxes.setScale(2, 5);
+        Double totalTaxes = 0D;
 
         if (!product.getCategory().equalsIgnoreCase(ProductCategoryEnum.BOOKS.getCategory()) &&
                 !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.FOOD.getCategory()) &&
@@ -68,7 +92,9 @@ public class OrderServiceImpl implements OrdersService {
             importTaxes = BigDecimal.valueOf(product.getPrice()).multiply(TaxesEnum.IMPORTED_TAX.getValue()).divide(TaxesEnum.HUNDRED.getValue(), 2, RoundingMode.HALF_UP);
         }
 
-        return taxes.add(importTaxes).floatValue();
+        totalTaxes = (Math.ceil(taxes.floatValue() * 2) / 2) + (Math.ceil(importTaxes.floatValue() * 2) / 2);
 
-    }
+        return totalTaxes.floatValue();
+
+    }*/
 }
