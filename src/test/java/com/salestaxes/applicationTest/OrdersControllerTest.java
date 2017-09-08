@@ -26,11 +26,11 @@ public class OrdersControllerTest {
     public void input1() {
         ShoppingCart shoppingCart = new ShoppingCart();
         List<Product> productList = new ArrayList<>();
-        Product p = new Product(1L, "1", "book", "BOOKS", false, 12.49F, 1L);
+        Product p = new Product(1L, "1", "book", "BOOKS", false, 12.49D, 1L);
         productList.add(p);
-        p = new Product(2L, "2", "music CD", "OTHER", false, 14.99F, 1L);
+        p = new Product(2L, "2", "music CD", "OTHER", false, 14.99D, 1L);
         productList.add(p);
-        p = new Product(3L, "3", "chocolate bar", "FOOD", false, 0.85F, 1L);
+        p = new Product(3L, "3", "chocolate bar", "FOOD", false, 0.85D, 1L);
         productList.add(p);
 
         shoppingCart.setId(1L);
@@ -40,16 +40,18 @@ public class OrdersControllerTest {
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);
 
+        System.out.println();
         System.out.println(output.getData().toString());
+        System.out.println();
     }
 
     @Test
     public void input2() {
         ShoppingCart shoppingCart = new ShoppingCart();
         List<Product> productList = new ArrayList<>();
-        Product p = new Product(1L, "1", "imported box of chocolates", "FOOD", true, 10.00F, 1L);
+        Product p = new Product(1L, "1", "imported box of chocolates", "FOOD", true, 10.00D, 1L);
         productList.add(p);
-        p = new Product(2L, "2", "imported bottle of perfume", "OTHER", true, 47.50F, 1L);
+        p = new Product(2L, "2", "imported bottle of perfume", "OTHER", true, 47.50D, 1L);
         productList.add(p);
 
         shoppingCart.setId(2L);
@@ -59,20 +61,22 @@ public class OrdersControllerTest {
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);
 
+        System.out.println();
         System.out.println(output.getData().toString());
+        System.out.println();
     }
 
     @Test
     public void input3() {
         ShoppingCart shoppingCart = new ShoppingCart();
         List<Product> productList = new ArrayList<>();
-        Product p = new Product(1L, "1", "imported bottle of perfume", "OTHER", true, 27.99F, 1L);
+        Product p = new Product(1L, "1", "imported bottle of perfume", "OTHER", true, 27.99D, 1L);
         productList.add(p);
-        p = new Product(2L, "2", "bottle of perfume", "OTHER", false, 18.99F, 1L);
+        p = new Product(2L, "2", "bottle of perfume", "OTHER", false, 18.99D, 1L);
         productList.add(p);
-        p = new Product(3L, "3", "packet of headache pills", "MEDICINES", false, 9.75F, 1L);
+        p = new Product(3L, "3", "packet of headache pills", "MEDICINES", false, 9.75D, 1L);
         productList.add(p);
-        p = new Product(4L, "4", "box of imported chocolate", "FOOD", true, 11.25F, 1L);
+        p = new Product(4L, "4", "box of imported chocolate", "FOOD", true, 11.25D, 1L);
         productList.add(p);
 
         shoppingCart.setId(3L);
@@ -82,7 +86,16 @@ public class OrdersControllerTest {
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);
 
+        System.out.println();
         System.out.println(output.getData().toString());
+        System.out.println();
+    }
+
+    @Test
+    public void generateAllRecepits() {
+        input1();
+        input2();
+        input3();
     }
 
 }

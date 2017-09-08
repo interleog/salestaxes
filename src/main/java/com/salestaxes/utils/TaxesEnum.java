@@ -7,17 +7,17 @@ import java.math.BigDecimal;
  */
 public enum TaxesEnum {
 
-    GENERAL_TAX(BigDecimal.valueOf(10)),
-    IMPORTED_TAX(BigDecimal.valueOf(5)),
-    HUNDRED(BigDecimal.valueOf(100));
+    GENERAL_TAX(10.00D),
+    IMPORTED_TAX(5.00D),
+    HUNDRED(100.00D);
 
-    private final BigDecimal tax;
+    private final Double tax;
 
-    private TaxesEnum(BigDecimal tax) {
+    private TaxesEnum(Double tax) {
         this.tax = tax;
     }
 
-    public BigDecimal getValue() {
+    public Double getValue() {
         return tax;
     }
 }

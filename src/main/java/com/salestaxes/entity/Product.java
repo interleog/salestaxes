@@ -14,7 +14,7 @@ public class Product extends BaseEntity {
     private boolean isImported;
 
     @NotNull
-    private Float price;
+    private Double price;
 
     @NotNull
     private Long quantity;
@@ -22,7 +22,7 @@ public class Product extends BaseEntity {
     public Product() {
     }
 
-    public Product(Long id, String cod, String des, String category, boolean isImported, Float price, Long quantity) {
+    public Product(Long id, String cod, String des, String category, boolean isImported, Double price, Long quantity) {
         super(id, cod, des);
         this.category = category;
         this.isImported = isImported;
@@ -46,11 +46,11 @@ public class Product extends BaseEntity {
         isImported = imported;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

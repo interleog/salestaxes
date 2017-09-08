@@ -8,9 +8,9 @@ import java.util.List;
 public class Receipt extends BaseEntity {
     private List<Product> productList;
 
-    private Float totalTaxes;
+    private Double totalTaxes;
 
-    private Float grandTotal;
+    private Double grandTotal;
 
     public List<Product> getProductList() {
         return productList;
@@ -20,19 +20,19 @@ public class Receipt extends BaseEntity {
         this.productList = productList;
     }
 
-    public Float getTotalTaxes() {
+    public Double getTotalTaxes() {
         return totalTaxes;
     }
 
-    public void setTotalTaxes(Float totalTaxes) {
+    public void setTotalTaxes(Double totalTaxes) {
         this.totalTaxes = totalTaxes;
     }
 
-    public Float getGrandTotal() {
+    public Double getGrandTotal() {
         return grandTotal;
     }
 
-    public void setGrandTotal(Float grandTotal) {
+    public void setGrandTotal(Double grandTotal) {
         this.grandTotal = grandTotal;
     }
 

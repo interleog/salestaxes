@@ -26,8 +26,8 @@ public class OrderServiceImpl implements OrdersService {
         rcpt.setId(shoppingCart.getId());
         rcpt.setCod(shoppingCart.getCod());
         rcpt.setDes("Recepit for shopping cart n. "+shoppingCart.getId());
-        rcpt.setTotalTaxes(0F);
-        rcpt.setGrandTotal(0F);
+        rcpt.setTotalTaxes(0D);
+        rcpt.setGrandTotal(0D);
 
         shoppingCart.getProductList()
                 .forEach(item -> {
@@ -38,10 +38,10 @@ public class OrderServiceImpl implements OrdersService {
                     p.setCategory(item.getCategory());
                     p.setImported(item.isImported());
                     p.setQuantity(item.getQuantity());
-                    Float productTaxes = calculateTaxes(item);
-                    p.setPrice(Float.sum(item.getPrice(), productTaxes));
-                    rcpt.setTotalTaxes(Float.sum(rcpt.getTotalTaxes(), productTaxes));
-                    rcpt.setGrandTotal(Float.sum(rcpt.getGrandTotal(), p.getPrice()));
+                    Double productTaxes = calculateTaxes(item);
+                    p.setPrice(roundDecimals(Double.sum(item.getPrice(), productTaxes), 2));
+                    rcpt.setTotalTaxes(roundDecimals(Double.sum(rcpt.getTotalTaxes(), productTaxes), 2));
+                    rcpt.setGrandTotal(roundDecimals(Double.sum(rcpt.getGrandTotal(), p.getPrice()), 2));
 
                     rcptProducts.add(p);
                 });
@@ -51,28 +51,40 @@ public class OrderServiceImpl implements OrdersService {
         return rcpt;
     }
 
-    private Float calculateTaxes(Product product) {
-        Double taxes = 0D;
-        Double importTaxes = 0D;
+    private Double calculateTaxes(Product product) {
+        Double taxes = 0.00;
+        Double importTaxes = 0.00;
 
         if (!product.getCategory().equalsIgnoreCase(ProductCategoryEnum.BOOKS.getCategory()) &&
                 !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.FOOD.getCategory()) &&
                 !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.MEDICINES.getCategory())) {
 
-            taxes = (double) (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue().intValue()) / TaxesEnum.HUNDRED.getValue().intValue();
-            taxes = Math.ceil(taxes * 2) / 2;
+            taxes = (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue()) / TaxesEnum.HUNDRED.getValue();
+            taxes = roundDecimals(taxes, 2);
+            taxes = roundTax(taxes);
 
         }
 
         if (product.isImported()) {
-            importTaxes = (double) (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue().intValue()) / TaxesEnum.HUNDRED.getValue().intValue();
-            importTaxes = Math.ceil(importTaxes * 2) / 2;
+            importTaxes = product.getPrice() * TaxesEnum.IMPORTED_TAX.getValue() / TaxesEnum.HUNDRED.getValue();
+            importTaxes = roundDecimals(importTaxes, 2);
+            importTaxes = roundTax(importTaxes);
+
         }
 
-        //totalTaxes = (Math.ceil(taxes.floatValue() * 2) / 2) + (Math.ceil(importTaxes.floatValue() * 2) / 2);
+        return Double.sum(taxes, importTaxes);
+    }
 
-        return (float) (taxes + importTaxes);
+    private Double roundTax(Double tax) {
+        return Math.ceil(tax / 0.05) * 0.05;
+    }
 
+    private double roundDecimals(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     /*private Float calculateTaxes(Product product) {
