@@ -91,11 +91,11 @@ public class OrdersControllerTest {
         System.out.println();
     }
 
-    @Test
-    public void generateAllRecepits() {
-        input1();
-        input2();
-        input3();
-    }
+//    @Test
+//    public void generateAllRecepits() {
+//        input1();
+//        input2();
+//        input3();
+//    }
 
 }
