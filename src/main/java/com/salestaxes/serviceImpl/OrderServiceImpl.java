@@ -52,30 +52,27 @@ public class OrderServiceImpl implements OrdersService {
     }
 
     private Double calculateTaxes(Product product) {
-        Double taxes = 0.00;
-        Double importTaxes = 0.00;
+        Double taxes = 0.00D;
+        Double importTaxes = 0.00D;
 
         if (!product.getCategory().equalsIgnoreCase(ProductCategoryEnum.BOOKS.getCategory()) &&
                 !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.FOOD.getCategory()) &&
                 !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.MEDICINES.getCategory())) {
 
             taxes = (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue()) / TaxesEnum.HUNDRED.getValue();
-            taxes = roundDecimals(taxes, 2);
             taxes = roundTax(taxes);
-
         }
 
         if (product.isImported()) {
             importTaxes = product.getPrice() * TaxesEnum.IMPORTED_TAX.getValue() / TaxesEnum.HUNDRED.getValue();
-            importTaxes = roundDecimals(importTaxes, 2);
             importTaxes = roundTax(importTaxes);
-
         }
 
-        return Double.sum(taxes, importTaxes);
+        return roundDecimals(Double.sum(taxes, importTaxes), 2);
     }
 
     private Double roundTax(Double tax) {
+        tax = roundDecimals(tax, 2);
         return Math.ceil(tax / 0.05) * 0.05;
     }
 
@@ -86,27 +83,4 @@ public class OrderServiceImpl implements OrdersService {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-
-    /*private Float calculateTaxes(Product product) {
-        BigDecimal taxes = BigDecimal.ZERO;
-        BigDecimal importTaxes = BigDecimal.ZERO;
-
-        Double totalTaxes = 0D;
-
-        if (!product.getCategory().equalsIgnoreCase(ProductCategoryEnum.BOOKS.getCategory()) &&
-                !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.FOOD.getCategory()) &&
-                !product.getCategory().equalsIgnoreCase(ProductCategoryEnum.MEDICINES.getCategory())) {
-
-            taxes = BigDecimal.valueOf(product.getPrice()).multiply(TaxesEnum.GENERAL_TAX.getValue()).divide(TaxesEnum.HUNDRED.getValue(), 2, RoundingMode.HALF_UP);
-        }
-
-        if (product.isImported()) {
-            importTaxes = BigDecimal.valueOf(product.getPrice()).multiply(TaxesEnum.IMPORTED_TAX.getValue()).divide(TaxesEnum.HUNDRED.getValue(), 2, RoundingMode.HALF_UP);
-        }
-
-        totalTaxes = (Math.ceil(taxes.floatValue() * 2) / 2) + (Math.ceil(importTaxes.floatValue() * 2) / 2);
-
-        return totalTaxes.floatValue();
-
-    }*/
 }
