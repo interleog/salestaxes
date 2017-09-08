@@ -16,6 +16,13 @@ import java.util.ArrayList;
 @Service
 public class OrdersServiceImpl implements OrdersService {
 
+    /**
+     * Core method of the application. It takes as an input a ShoppingCart object, which contains the list of
+     * products, then calculate taxes and price for every product, and return the Receipt object.
+     *
+     * @param shoppingCart ShoppingCart object
+     * @return Receipt object
+     */
     @Override
     public Receipt processOrder(final ShoppingCart shoppingCart) {
 
@@ -49,6 +56,12 @@ public class OrdersServiceImpl implements OrdersService {
         return rcpt;
     }
 
+    /**
+     * This method is used to calculate the taxes of a product.
+     *
+     * @param product Product object
+     * @return Double number
+     */
     private Double calculateTaxes(final Product product) {
         Double taxes = 0.00D;
         Double importTaxes = 0.00D;
@@ -66,11 +79,24 @@ public class OrdersServiceImpl implements OrdersService {
         return product.getQuantity() * roundDecimals(Double.sum(taxes, importTaxes), 2);
     }
 
+    /**
+     * This method round the tax value to the nearest 0.05.
+     *
+     * @param tax Product tax value
+     * @return Rounded tax to the nearest 0.05
+     */
     private Double roundTax(final Double tax) {
         Double roundedTax = roundDecimals(tax, 2);
         return Math.ceil(roundedTax / 0.05) * 0.05;
     }
 
+    /**
+     * Method used to round a number to n decimal places.
+     *
+     * @param value The number that has to be rounded
+     * @param places Number of decimal places
+     * @return Double rounded number
+     */
     private Double roundDecimals(final Double value, final int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -79,6 +105,12 @@ public class OrdersServiceImpl implements OrdersService {
         return bd.doubleValue();
     }
 
+    /**
+     * Method used to check if a product is tax exempt.
+     *
+     * @param p Product object
+     * @return Boolean value
+     */
     private boolean isTaxFree(final Product p) {
         return p.getCategory().equalsIgnoreCase(ProductCategoryEnum.BOOKS.getCategory()) ||
                 p.getCategory().equalsIgnoreCase(ProductCategoryEnum.FOOD.getCategory()) ||

@@ -26,6 +26,12 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
+    /**
+     * Method used to insert a new order and generate a receipt.
+     *
+     * @param shoppingCart ShoppingCart object
+     * @return Receipt object
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = "application/json")
     public GenericResponse<Receipt> insert(@RequestBody @Valid ShoppingCart shoppingCart) {
 
