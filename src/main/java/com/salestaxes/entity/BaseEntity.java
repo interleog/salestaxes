@@ -1,8 +1,5 @@
 package com.salestaxes.entity;
 
-/**
- * Created by Leonardo Galati on 06/09/2017.
- */
 public class BaseEntity {
 
 

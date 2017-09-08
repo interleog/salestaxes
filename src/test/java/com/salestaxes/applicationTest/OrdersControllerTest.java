@@ -40,7 +40,8 @@ public class OrdersControllerTest {
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);
 
-        System.out.println();
+        System.out.println("\n############### TEST 1 ###############");
+        System.out.println(shoppingCart.toString());
         System.out.println(output.getData().toString());
         System.out.println();
     }
@@ -61,7 +62,8 @@ public class OrdersControllerTest {
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);
 
-        System.out.println();
+        System.out.println("############### TEST 2 ###############");
+        System.out.println(shoppingCart.toString());
         System.out.println(output.getData().toString());
         System.out.println();
     }
@@ -86,7 +88,8 @@ public class OrdersControllerTest {
 
         GenericResponse<Receipt> output = ordersController.insert(shoppingCart);
 
-        System.out.println();
+        System.out.println("############### TEST 3 ###############");
+        System.out.println(shoppingCart.toString());
         System.out.println(output.getData().toString());
         System.out.println();
     }

@@ -2,9 +2,6 @@ package com.salestaxes.entity;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Leonardo Galati on 07/09/2017.
- */
 public class Product extends BaseEntity {
 
     @NotNull

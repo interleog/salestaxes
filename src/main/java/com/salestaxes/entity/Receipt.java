@@ -2,15 +2,18 @@ package com.salestaxes.entity;
 
 import java.util.List;
 
-/**
- * Created by Leonardo Galati on 07/09/2017.
- */
 public class Receipt extends BaseEntity {
     private List<Product> productList;
 
     private Double totalTaxes;
 
     private Double grandTotal;
+
+    public Receipt(List<Product> productList, Double totalTaxes, Double grandTotal) {
+        this.productList = productList;
+        this.totalTaxes = totalTaxes;
+        this.grandTotal = grandTotal;
+    }
 
     public List<Product> getProductList() {
         return productList;

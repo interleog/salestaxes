@@ -1,10 +1,5 @@
 package com.salestaxes.utils;
 
-import java.math.BigDecimal;
-
-/**
- * Created by Leonardo Galati on 07/09/2017.
- */
 public enum TaxesEnum {
 
     GENERAL_TAX(10.00D),
@@ -13,7 +8,7 @@ public enum TaxesEnum {
 
     private final Double tax;
 
-    private TaxesEnum(Double tax) {
+    TaxesEnum(Double tax) {
         this.tax = tax;
     }
 

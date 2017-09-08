@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-/**
- * Created by Leonardo Galati on 07/09/2017.
- */
+
 @RestController
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*")
@@ -33,7 +31,11 @@ public class OrdersController {
 
         Receipt rcpt = ordersService.processOrder(shoppingCart);
 
-        return new GenericResponse<>(rcpt, 0);
+        if (!rcpt.getProductList().isEmpty()) {
+            return new GenericResponse<>(rcpt, 0);
+        } else {
+            return new GenericResponse<>(null, 1);
+        }
 
     }
 
