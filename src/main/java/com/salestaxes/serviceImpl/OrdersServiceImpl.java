@@ -18,7 +18,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     /**
      * Core method of the application. It takes as an input a ShoppingCart object, which contains the list of
-     * products, then calculate taxes and price for every product, and return the Receipt object.
+     * products, then calculates taxes and price for every product, and returns a Receipt object.
      *
      * @param shoppingCart ShoppingCart object
      * @return Receipt object
