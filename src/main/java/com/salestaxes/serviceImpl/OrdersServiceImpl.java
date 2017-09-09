@@ -79,6 +79,14 @@ public class OrdersServiceImpl implements OrdersService {
         return product.getQuantity() * roundDecimals(Double.sum(taxes, importTaxes), 2);
     }
 
+    /**
+     * Method used to calculate a given percentage of a given value.
+     *
+     * @param value The value on which calculate percentage
+     * @param percentage Percentage to be calculated
+     * @return The percentage value
+     */
+
     private Double calculatePercentage(final Double value, final Double percentage) {
         return (value * percentage) / TaxesEnum.HUNDRED.getValue();
     }
