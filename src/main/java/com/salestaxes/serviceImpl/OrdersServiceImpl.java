@@ -67,16 +67,20 @@ public class OrdersServiceImpl implements OrdersService {
         Double importTaxes = 0.00D;
 
         if (!isTaxFree(product)) {
-            taxes = (product.getPrice() * TaxesEnum.GENERAL_TAX.getValue()) / TaxesEnum.HUNDRED.getValue();
+            taxes = calculatePercentage(product.getPrice(), TaxesEnum.GENERAL_TAX.getValue());
             taxes = roundTax(taxes);
         }
 
         if (product.isImported()) {
-            importTaxes = product.getPrice() * TaxesEnum.IMPORTED_TAX.getValue() / TaxesEnum.HUNDRED.getValue();
+            importTaxes = calculatePercentage(product.getPrice(), TaxesEnum.IMPORTED_TAX.getValue());
             importTaxes = roundTax(importTaxes);
         }
 
         return product.getQuantity() * roundDecimals(Double.sum(taxes, importTaxes), 2);
+    }
+
+    private Double calculatePercentage(final Double value, final Double percentage) {
+        return (value * percentage) / TaxesEnum.HUNDRED.getValue();
     }
 
     /**
