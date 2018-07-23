@@ -3,6 +3,7 @@ package com.salestaxes.serviceImpl;
 import com.salestaxes.entity.Product;
 import com.salestaxes.entity.Receipt;
 import com.salestaxes.entity.ShoppingCart;
+import com.salestaxes.entity.ShoppingCartItem;
 import com.salestaxes.service.OrdersService;
 import com.salestaxes.utils.ProductCategoryEnum;
 import com.salestaxes.utils.TaxesEnum;
@@ -28,23 +29,23 @@ public class OrdersServiceImpl implements OrdersService {
 
         Receipt rcpt = new Receipt(new ArrayList<>(), 0.00D, 0.00D);
 
-        if (!shoppingCart.getProductList().isEmpty()) {
+        if (shoppingCart != null && !shoppingCart.getItemList().isEmpty()) {
 
             rcpt.setId(shoppingCart.getId());
             rcpt.setCod(shoppingCart.getCod());
             rcpt.setDes("Receipt for shopping cart n. " + shoppingCart.getId());
 
-            shoppingCart.getProductList()
+            shoppingCart.getItemList()
                     .forEach(item -> {
                         Product p = new Product();
-                        p.setId(item.getId());
-                        p.setCod(item.getCod());
-                        p.setDes(item.getDes());
-                        p.setCategory(item.getCategory());
-                        p.setImported(item.isImported());
-                        p.setQuantity(item.getQuantity());
-                        Double productTaxes = calculateTaxes(item);
-                        p.setPrice(p.getQuantity() * roundDecimals(Double.sum(item.getPrice(), productTaxes), 2));
+                        p.setId(item.getProduct().getId());
+                        p.setCod(item.getProduct().getCod());
+                        p.setDes(item.getProduct().getDes());
+                        p.setCategory(item.getProduct().getCategory());
+                        p.setImported(item.getProduct().isImported());
+                        //p.setQuantity(item.getQuantity());
+                        Double productTaxes = calculateTaxes(item.getProduct(), item.getQuantity());
+                        p.setPrice(item.getQuantity() * roundDecimals(Double.sum(item.getProduct().getPrice(), productTaxes), 2));
                         rcpt.setTotalTaxes(roundDecimals(Double.sum(rcpt.getTotalTaxes(), productTaxes), 2));
                         rcpt.setGrandTotal(roundDecimals(Double.sum(rcpt.getGrandTotal(), p.getPrice()), 2));
 
@@ -62,7 +63,7 @@ public class OrdersServiceImpl implements OrdersService {
      * @param product Product object
      * @return Double number
      */
-    private Double calculateTaxes(final Product product) {
+    private Double calculateTaxes(final Product product, final Long quantity) {
         Double taxes = 0.00D;
         Double importTaxes = 0.00D;
 
@@ -76,7 +77,7 @@ public class OrdersServiceImpl implements OrdersService {
             importTaxes = roundTax(importTaxes);
         }
 
-        return product.getQuantity() * roundDecimals(Double.sum(taxes, importTaxes), 2);
+        return quantity * roundDecimals(Double.sum(taxes, importTaxes), 2);
     }
 
     /**

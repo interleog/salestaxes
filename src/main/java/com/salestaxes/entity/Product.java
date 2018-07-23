@@ -1,30 +1,34 @@
 package com.salestaxes.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "PRODUCT")
 public class Product extends BaseEntity {
 
     @NotNull
+    @Column(name = "CATEGORY")
     private String category;
 
     @NotNull
+    @Column(name = "IMPORTED")
     private boolean isImported;
 
     @NotNull
+    @Column(name = "PRICE")
     private Double price;
-
-    @NotNull
-    private Long quantity;
 
     public Product() {
     }
 
-    public Product(Long id, String cod, String des, String category, boolean isImported, Double price, Long quantity) {
+    public Product(Long id, String cod, String des, String category, boolean isImported, Double price) {
         super(id, cod, des);
         this.category = category;
         this.isImported = isImported;
         this.price = price;
-        this.quantity = quantity;
     }
 
     public String getCategory() {
@@ -51,16 +55,8 @@ public class Product extends BaseEntity {
         this.price = price;
     }
 
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public String toString() {
-        return quantity + " " + this.getDes() + ": " + price + "\n";
+        return this.getDes() + ": " + price + "\n";
     }
 }

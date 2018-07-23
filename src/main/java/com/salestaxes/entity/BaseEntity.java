@@ -1,12 +1,21 @@
 package com.salestaxes.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class BaseEntity {
 
 
+    @Id
+    @Column(name = "ID")
     private Long id;
 
+    @Column(name = "COD")
     private String cod;
 
+    @Column(name = "DESCRIPTION")
     private String des;
 
     public BaseEntity() {

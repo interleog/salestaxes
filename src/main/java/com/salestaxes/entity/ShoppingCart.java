@@ -1,32 +1,22 @@
 package com.salestaxes.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
+@Entity
+@Table(name = "SHOPPING_CART")
 public class ShoppingCart extends BaseEntity {
 
-    @NotNull
-    private List<Product> productList;
+    //@NotNull
+    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.EAGER)
+    private List<ShoppingCartItem> itemList;
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<ShoppingCartItem> getItemList() {
+        return itemList;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setItemList(List<ShoppingCartItem> itemList) {
+        this.itemList = itemList;
     }
-
-    @Override
-    public String toString() {
-
-        StringBuilder output = new StringBuilder("Input " + this.getId() + ": \n");
-
-        productList.forEach(p -> {
-            output.append(p.toString());
-        });
-
-        return output.toString();
-    }
-
 }
